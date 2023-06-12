@@ -1,3 +1,5 @@
+const database = require("./database");
+
 const movies = [
   {
     id: 1,
