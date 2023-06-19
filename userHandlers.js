@@ -38,30 +38,32 @@ const getUserById = (req, res) => {
   // }
 };
 const postUsers = (req, res) => {
-  const { firstname, lastname, email, city, language } = req.body;
+  const { firstname, lastname, email, city, language, hashedPassword } =
+    req.body;
 
   database
     .query(
-      "INSERT INTO users (firstname, lastname, email, city, language) VALUES (?,?,?,?,?)",
-      [firstname, lastname, email, city, language]
+      "INSERT INTO users (firstname, lastname, email, city, language, hashedPassword) VALUES (?,?,?,?,?,?)",
+      [firstname, lastname, email, city, language, hashedPassword]
     )
     .then(([user]) => {
       res.location(`/api/users/${user.insertId}`).sendStatus(201);
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error saving the movie");
+      res.status(500).send("Error saving the user");
     });
 };
 
 const updateUser = (req, res) => {
   const id = parseInt(req.params.id);
-  const { firstname, lastname, email, city, language } = req.body;
+  const { firstname, lastname, email, city, language, hashedPassword } =
+    req.body;
 
   database
     .query(
-      "update users set firstname =?, lastname=?, email=?, city=?, language=? where id = ?",
-      [firstname, lastname, email, city, language, id]
+      "update users set firstname =?, lastname=?, email=?, city=?, language=? hashedPassword= ? where id = ?",
+      [firstname, lastname, email, city, language, hashedPassword, id]
     )
     .then(([result]) => {
       if (result.affectedRows === 0) {
@@ -72,7 +74,7 @@ const updateUser = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error editing the movie");
+      res.status(500).send("Error editing the user");
     });
 };
 
@@ -90,11 +92,9 @@ const deleteUser = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error deleting the movie");
+      res.status(500).send("Error deleting the user");
     });
 };
-
-
 
 module.exports = {
   getUsers,
