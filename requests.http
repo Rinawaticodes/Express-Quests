@@ -1,0 +1,15 @@
+GET http://localhost:5000/api/users
+
+###
+
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+    "firstname": "example",
+    "lastname": "EXAMPLE",
+    "email": "example@gmail.com",
+    "city": "Marne",
+    "language": "Remois",
+    "password": "marnereims"
+}

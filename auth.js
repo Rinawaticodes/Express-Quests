@@ -24,6 +24,7 @@ const hashPassword = (req, res, next) => {
     });
 };
 
+
 module.exports = {
   hashPassword,
 };
